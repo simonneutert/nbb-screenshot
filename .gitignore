@@ -1,6 +1,9 @@
-.clj-kondo/
+.clj-kondo/cache/
+.clj-kondo/.cache/
+.lsp/sqlite.*.db
 .calva/
 .lsp/
 .nrepl-port
 node_modules
 screenshot.png
+
