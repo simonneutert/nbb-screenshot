@@ -9,7 +9,7 @@
 (def parser (ArgumentParser. #js {:prog "main.cljs"
                                   :description "Example!"}))
 
-(.add_argument parser "" #js {:help "url to take screenshot at"})
+(.add_argument parser "" #js {:help "url to take screenshot of"})
 (.add_argument parser "-t" "--timeout" #js {:help "timeout before taking the screenshot"})
 
 (.dir js/console (.parse_args parser (clj->js (vec *command-line-args*))))
