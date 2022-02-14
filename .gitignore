@@ -1,0 +1,5 @@
+.clj-kondo/
+.calva/
+.lsp/
+.nrepl-port
+node_modules

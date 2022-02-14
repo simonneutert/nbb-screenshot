@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "playwright": "^1.19.0",
+    "puppeteer": "^13.3.1"
+  }
+}
