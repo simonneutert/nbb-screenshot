@@ -1,33 +1,42 @@
 (ns script
   (:require
-   ["playwright$default" :as playwright]
-   ["playwright$default" :refer [firefox]]
-   ["argparse" :as argparse :refer [ArgumentParser]]
-   [promesa.core :as p]))
+   ["playwright$default" :as playwright :refer [firefox]]
+   ["argparse" :as argparse :refer [ArgumentParser]]))
 
+(defn- sleep [f ms]
+  (js/setTimeout f ms))
 
-(def parser (ArgumentParser. #js {:prog "main.cljs"
-                                  :description "Example!"}))
+(def parser
+  (ArgumentParser. #js {:prog "main.cljs"
+                        :description "This is a simple screenshot app!"}))
 
-(.add_argument parser "" #js {:help "url to take screenshot of"})
-(.add_argument parser "-t" "--timeout" #js {:help "timeout before taking the screenshot"})
+(.add_argument parser ""
+               #js {:help "url of which to take a screenshot"})
+(.add_argument parser "-t" "--timeout"
+               #js {:help "timeout after page visit before taking the screenshot"})
 
-(.dir js/console (.parse_args parser (clj->js (vec *command-line-args*))))
+#_(.dir js/console (.parse_args parser (clj->js (vec *command-line-args*))))
 
-(defn get-url-command-line-arg []
+(defn- get-url-command-line-arg
+  "Parses the first string after calling the script
+
+  `$ nbb main.cljs https://www.simon-neutert.de`"
+  []
   (.- (.parse_args parser (clj->js (vec *command-line-args*)))))
 
-(defn get-timeout-command-line-arg []
+(defn- get-timeout-command-line-arg
+  "Parses the argument passed with `-t` or `--timeout` after calling the script
+
+  `$ nbb main.cljs https://www.simon-neutert.de`"
+  []
   (js/parseInt
    (or
     (.-t (.parse_args parser (clj->js (vec *command-line-args*))))
     (.-timeout (.parse_args parser (clj->js (vec *command-line-args*))))
     300)))
 
-(defn sleep [f ms]
-  (js/setTimeout f ms))
-
 (defn sleep-promise+
+  "wraps a Promise around a timeout returning the given object"
   [obj wait]
   (js/Promise.
    (fn [resolve _reject]
