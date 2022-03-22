@@ -1,3 +1,3 @@
 `$ npm install` then:
 
-`$ nbb main.js https://www.simon-neutert.de --timeout 3000`
+`$ nbb main.cljs https://www.simon-neutert.de --timeout 3000`
