@@ -42,18 +42,32 @@
    (fn [resolve _reject]
      (sleep #(resolve obj) wait))))
 
+(defn url-without-protocol
+  [url]
+  (-> url
+      (.replace "http://" "")
+      (.replace "https://" "")))
+
+(defn filename-screenshot
+  [url]
+  (prn url)
+  (-> url
+      (url-without-protocol)
+      (str "_"  (str (js/Date.now)) ".png")))
+
 (defn screenshot
   []
-  (->
-   (.launch firefox)
-   (.then (fn [browser]
-            (->
-             (.newPage browser)
-             (.then (fn [page]
-                      (-> (.goto page (get-url-command-line-arg))
-                          (.then #(sleep-promise+ browser (get-timeout-command-line-arg)))
-                          (.then #(.screenshot page #js{:path "screenshot.png"}))
-                          (.catch #(js/console.log %))
-                          (.then #(.close browser))))))))))
+  (let [url (get-url-command-line-arg)]
+    (->
+     (.launch firefox)
+     (.then (fn [browser]
+              (->
+               (.newPage browser)
+               (.then (fn [page]
+                        (-> (.goto page url)
+                            (.then #(sleep-promise+ browser (get-timeout-command-line-arg)))
+                            (.then #(.screenshot page #js{:path (filename-screenshot url)}))
+                            (.catch #(js/console.log %))
+                            (.then #(.close browser)))))))))))
 
 (screenshot)
