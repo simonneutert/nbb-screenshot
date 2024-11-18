@@ -1,13 +1,19 @@
-# Install dependencies
+## Install dependencies
 
-## nbb
+First, install the dependencies:
+
+### nbb
 
 `$ npm i -g nbb && npm install`
 
-## playwrigth
+### playwright
 
 `$ npx playwright install`
 
-# run the script
+## Run the script
+
+`$ nbb main.cljs <url> --timeout <timeout>`
+
+### Example
 
 `$ nbb main.cljs https://www.simon-neutert.de --timeout 3000`
