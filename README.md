@@ -12,8 +12,18 @@ First, install the dependencies:
 
 ## Run the script
 
-`$ nbb main.cljs <url> --timeout <timeout>`
+`$ nbb main.cljs --help`
+
+or with a url and no further arguments:
+
+`$ nbb main.cljs <url>`
 
 ### Example
 
-`$ nbb main.cljs https://www.simon-neutert.de --timeout 3000`
+```bash
+$ nbb main.cljs https://www.simon-neutert.de --allscreen --timeout=3000
+```
+
+```bash
+$ nbb main.cljs https://www.simon-neutert.de -a -t3000
+```
