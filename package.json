@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "argparse": "^3.0.3",
+    "argparse": "^3.0.4",
     "playwright": "^1.64.1"
   }
 }
